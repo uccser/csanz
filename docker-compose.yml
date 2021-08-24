@@ -1,0 +1,33 @@
+version: '3.8'
+
+x-default-opts:
+  &default-opts
+  logging:
+    options:
+      max-size: '1m'
+      max-file: '3'
+
+services:
+    nginx:
+        image: Dockerfile
+        deploy:
+            replicas: 1
+            placement:
+                constraints:
+                    - node.role==worker
+                    - node.labels.role==apps
+            restart_policy:
+                condition: on-failure
+            labels:
+                - "traefik.enable=true"
+                - "traefik.docker.network=uccser-dev-public"
+                - "traefik.http.services.csanz-nginx.loadbalancer.server.port=8080"
+                - "traefik.http.routers.csanz-nginx.service=csanz-nginx"
+                - "traefik.http.routers.csanz-nginx.rule=Host(`www.csanz.ac.nz`)"
+                - "traefik.http.routers.csanz-nginx.entryPoints=web"
+        networks:
+            - uccser-dev-public
+
+networks:
+    uccser-dev-public:
+        external: true
