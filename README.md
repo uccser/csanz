@@ -17,7 +17,7 @@ Run the container locally:
 docker run --rm -p 8080:8080 csanz
 ```
 
-View the website in a web browser on port 8080.
+View the website in a web browser at `localhost:8080`.
 
 ## Deployment
 
