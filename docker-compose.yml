@@ -23,7 +23,7 @@ services:
                 - "traefik.docker.network=uccser-public"
                 - "traefik.http.services.csanz-nginx.loadbalancer.server.port=8080"
                 - "traefik.http.routers.csanz-nginx.service=csanz-nginx"
-                - "traefik.http.routers.csanz-nginx.rule=Host(`www.csanz.ac.nz`)"
+                - "traefik.http.routers.csanz-nginx.rule=Host(`www.csanz.ac.nz`) || Host(`csanz.ac.nz`)"
                 - "traefik.http.routers.csanz-nginx.entryPoints=web"
                 # Redirect non-www to www.
                 - "traefik.http.middlewares.csanz-redirect-non-www.redirectregex.regex=^https://csanz\\.ac\\.nz(.*)"
